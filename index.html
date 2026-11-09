@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C&J Group Ecosystem</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1E293B',
+                            900: '#0F172A',
+                            950: '#090D16',
+                        },
+                        tealMedical: '#0EA5E9',
+                        goldAccent: '#F59E0B',
+                        emeraldGym: '#10B981',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #0EA5E9 0%, #F59E0B 50%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.85), rgba(9, 13, 22, 0.98)), 
+                        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #0EA5E9;
+        }
+    </style>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-tealMedical selection:text-white">
+
+    <!-- NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-navy-900/95 backdrop-blur-md text-white border-b border-slate-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-tealMedical via-goldAccent to-emeraldGym flex items-center justify-center font-black text-navy-950 text-xl shadow-lg">
+                    C&J
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-xl tracking-tight text-white leading-none">C&J GROUP ECOSYSTEM</span>
+                    <span class="text-[10px] tracking-widest text-slate-400 uppercase font-semibold mt-1">Hospital • Hotel • Gym</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center gap-8 font-medium text-sm text-slate-300">
+                <a href="#about" class="hover:text-tealMedical transition-colors">About Ecosystem</a>
+                <a href="#entities" class="hover:text-tealMedical transition-colors">Divisions</a>
+                <a href="#services" class="hover:text-tealMedical transition-colors">Services & Pricing</a>
+                <a href="#calculator" class="hover:text-tealMedical transition-colors">Cost Estimator</a>
+                <a href="#contact" class="hover:text-tealMedical transition-colors">Contact</a>
+            </nav>
+
+            <!-- Actions Right -->
+            <div class="hidden sm:flex items-center gap-4">
+                <div class="px-3 py-1.5 rounded-lg border border-slate-700 bg-navy-800/80 text-xs font-semibold text-slate-200 flex items-center gap-2">
+                    <i class="fa-solid fa-coins text-goldAccent"></i>
+                    <span>Currency: <span class="text-white font-bold">KES (KSh)</span></span>
+                </div>
+
+                <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-tealMedical to-emeraldGym text-navy-950 font-bold text-sm shadow-md hover:shadow-tealMedical/20 hover:scale-105 active:scale-95 transition-all">
+                    Book Service
+                </button>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-navy-800">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-navy-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 font-medium border-b border-slate-800/50">About Ecosystem</a>
+            <a href="#entities" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 font-medium border-b border-slate-800/50">Divisions</a>
+            <a href="#services" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 font-medium border-b border-slate-800/50">Services & Pricing</a>
+            <a href="#calculator" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 font-medium border-b border-slate-800/50">Cost Estimator</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 font-medium">Contact</a>
+            
+            <div class="pt-3 flex flex-col gap-3">
+                <div class="w-full py-2.5 rounded-lg border border-slate-700 bg-navy-800 text-xs font-semibold text-slate-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-coins text-goldAccent"></i>
+                    <span>Currency: <span class="text-white font-bold">KES (KSh)</span></span>
+                </div>
+                <button onclick="openBookingModal(); toggleMobileMenu();" class="w-full py-3 rounded-xl bg-gradient-to-r from-tealMedical to-emeraldGym text-navy-950 font-bold text-sm">
+                    Book Service
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="about" class="relative min-h-[90vh] hero-bg text-white flex items-center justify-center px-4 py-20">
+        <div class="max-w-5xl mx-auto text-center space-y-8 z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-navy-800/90 border border-slate-700/80 backdrop-blur-sm text-xs font-semibold text-goldAccent tracking-wide uppercase">
+                <span class="w-2 h-2 rounded-full bg-goldAccent animate-pulse"></span>
+                The 3-in-1 Synergy Ecosystem
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight">
+                One Hub. <br/>
+                <span class="gradient-text">Healthcare, Hospitality & Vitality.</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
+                C&J Group combines world-class medical treatment, luxury hotel accommodation, and modern fitness facilities into one integrated ecosystem. Explore services and book seamlessly in KES.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-tealMedical to-emeraldGym text-navy-950 font-extrabold text-base shadow-xl hover:shadow-tealMedical/30 hover:-translate-y-0.5 transition-all">
+                    View Services & Pricing (KES)
+                </a>
+                <a href="#calculator" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-slate-700 bg-navy-900/60 backdrop-blur-md text-white font-bold text-base hover:bg-slate-800 transition-all">
+                    Calculate Package Cost
+                </a>
+            </div>
+
+            <!-- Ecosystem Quick Badges -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-12 max-w-4xl mx-auto">
+                <div class="p-4 rounded-2xl bg-navy-900/80 border border-slate-800 flex items-center gap-4 text-left">
+                    <div class="w-12 h-12 rounded-xl bg-tealMedical/20 text-tealMedical flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-hospital"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-white">C&J Healthcare</h4>
+                        <p class="text-xs text-slate-400">Hospital & Diagnostics</p>
+                    </div>
+                </div>
+                <div class="p-4 rounded-2xl bg-navy-900/80 border border-slate-800 flex items-center gap-4 text-left">
+                    <div class="w-12 h-12 rounded-xl bg-goldAccent/20 text-goldAccent flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-white">C&J Haven</h4>
+                        <p class="text-xs text-slate-400">Luxury Hotel & Spa</p>
+                    </div>
+                </div>
+                <div class="p-4 rounded-2xl bg-navy-900/80 border border-slate-800 flex items-center gap-4 text-left">
+                    <div class="w-12 h-12 rounded-xl bg-emeraldGym/20 text-emeraldGym flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-dumbbell"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-white">C&J Vitality</h4>
+                        <p class="text-xs text-slate-400">Fitness & Recovery Gym</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ECOSYSTEM DIVISIONS SECTION -->
+    <section id="entities" class="py-20 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold text-tealMedical uppercase tracking-widest mb-2">Integrated Divisions</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-navy-900">Explore The C&J Ecosystem</h3>
+                <p class="text-slate-600 mt-3">Designed for holistic health, hospitality, and performance under one single operational network.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Healthcare Card -->
+                <div class="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=800&auto=format&fit=crop" alt="C&J Healthcare" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 px-3 py-1 rounded-lg bg-tealMedical text-navy-950 text-xs font-extrabold uppercase">Hospital</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xl font-bold text-navy-900 mb-2">C&J Healthcare</h4>
+                            <p class="text-sm text-slate-600 mb-4">State-of-the-art emergency, outpatient consultations, diagnostic panels, and private inpatient wards.</p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100">
+                            <button onclick="filterByEntity('hospital')" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-tealMedical hover:text-white font-bold text-xs transition-colors text-slate-700">
+                                View Healthcare Pricing
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel Card -->
+                <div class="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop" alt="C&J Haven Hotel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 px-3 py-1 rounded-lg bg-goldAccent text-navy-950 text-xs font-extrabold uppercase">Hotel & Spa</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xl font-bold text-navy-900 mb-2">C&J Haven Hotel</h4>
+                            <p class="text-sm text-slate-600 mb-4">Luxury executive suites, presidential accommodations, conference facilities, and rejuvenating spa sessions.</p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100">
+                            <button onclick="filterByEntity('hotel')" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-goldAccent hover:text-navy-950 font-bold text-xs transition-colors text-slate-700">
+                                View Hotel Rates
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gym Card -->
+                <div class="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" alt="C&J Vitality Gym" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 px-3 py-1 rounded-lg bg-emeraldGym text-navy-950 text-xs font-extrabold uppercase">Fitness</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xl font-bold text-navy-900 mb-2">C&J Vitality Gym</h4>
+                            <p class="text-sm text-slate-600 mb-4">High-performance fitness center featuring certified personal trainers, daily passes, and annual VIP passes.</p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100">
+                            <button onclick="filterByEntity('gym')" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-emeraldGym hover:text-white font-bold text-xs transition-colors text-slate-700">
+                                View Gym Passes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES & PRICING DIRECTORY SECTION -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold text-tealMedical uppercase tracking-widest mb-2">Transparent KES Rates</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-navy-900">Ecosystem Services & Pricing</h3>
+                <p class="text-slate-600 mt-2">Filter across divisions or search directly for specific services.</p>
+            </div>
+
+            <!-- Controls (Search + Filters) -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                <!-- Division Filter Buttons -->
+                <div class="flex flex-wrap items-center gap-2 w-full md:w-auto" id="filter-buttons">
+                    <button onclick="filterByEntity('all')" data-entity="all" class="filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-navy-900 text-white shadow">
+                        All Ecosystem
+                    </button>
+                    <button onclick="filterByEntity('hospital')" data-entity="hospital" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-200 hover:border-tealMedical">
+                        <i class="fa-solid fa-hospital text-tealMedical mr-1"></i> Hospital
+                    </button>
+                    <button onclick="filterByEntity('hotel')" data-entity="hotel" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-200 hover:border-goldAccent">
+                        <i class="fa-solid fa-hotel text-goldAccent mr-1"></i> Hotel
+                    </button>
+                    <button onclick="filterByEntity('gym')" data-entity="gym" class="filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-200 hover:border-emeraldGym">
+                        <i class="fa-solid fa-dumbbell text-emeraldGym mr-1"></i> Gym
+                    </button>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="search-input" onkeyup="filterServices()" placeholder="Search service name or category..." class="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-tealMedical"/>
+                </div>
+            </div>
+
+            <!-- Dynamic Services Grid -->
+            <div id="services-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Injected via JavaScript -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="empty-state" class="hidden text-center py-12">
+                <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400 text-2xl mb-4">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+                <h4 class="text-slate-800 font-bold">No matching services found</h4>
+                <p class="text-xs text-slate-500 mt-1">Try clearing your search term or switching entity tabs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTIMATOR / CALCULATOR SECTION -->
+    <section id="calculator" class="py-20 bg-navy-950 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Info Column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-tealMedical/10 border border-tealMedical/20 text-xs font-bold text-tealMedical uppercase">
+                        Cross-Ecosystem Estimator
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight">
+                        Calculate Your Custom Package Total
+                    </h2>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Planning a combined visit for hospital checkups, hotel stays, or gym fitness sessions? Select your items to compute your combined package cost instantly in Kenyan Shillings.
+                    </p>
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-emeraldGym/20 text-emeraldGym flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Transparent Standardized Pricing</h4>
+                                <p class="text-xs text-slate-400">All pricing is calculated upfront in KES with no hidden processing fees.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-goldAccent/20 text-goldAccent flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-envelope-circle-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white">Direct Management Email Dispatch</h4>
+                                <p class="text-xs text-slate-400">Selected packages send straight to management at <strong>ozanjulro@gmail.com</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculator Interactive Box -->
+                <div class="lg:col-span-7 bg-navy-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                    <h3 class="text-lg font-bold text-white mb-6 flex items-center justify-between">
+                        <span>Select Services for Estimate</span>
+                        <button onclick="clearCalculator()" class="text-xs text-slate-400 hover:text-goldAccent underline">Reset Selections</button>
+                    </h3>
+
+                    <!-- Checkbox List -->
+                    <div class="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scroll" id="calculator-options">
+                        <!-- Injected via JavaScript -->
+                    </div>
+
+                    <!-- Total Summary -->
+                    <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <span class="text-xs text-slate-400 block uppercase font-semibold">Total Package Estimated Cost</span>
+                            <span id="calc-total-price" class="text-3xl font-black text-goldAccent">KES 0</span>
+                        </div>
+                        <button onclick="proceedToBookFromCalc()" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-tealMedical to-emeraldGym text-navy-950 font-extrabold text-sm shadow-lg hover:scale-105 transition-all">
+                            Book Selected Package
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer id="contact" class="bg-navy-950 text-slate-400 border-t border-slate-800/80 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
+                <!-- Col 1: Brand Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-tealMedical via-goldAccent to-emeraldGym flex items-center justify-center font-black text-navy-950 text-lg">
+                            C&J
+                        </div>
+                        <span class="font-extrabold text-xl tracking-tight text-white">C&J GROUP</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        An ecosystem offering Healthcare, Luxury Hospitality, and Gym Fitness under one unified management framework.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#" class="w-8 h-8 rounded-lg bg-navy-900 hover:bg-tealMedical hover:text-navy-950 flex items-center justify-center transition-colors text-xs"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-navy-900 hover:bg-tealMedical hover:text-navy-950 flex items-center justify-center transition-colors text-xs"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-navy-900 hover:bg-tealMedical hover:text-navy-950 flex items-center justify-center transition-colors text-xs"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-lg bg-navy-900 hover:bg-tealMedical hover:text-navy-950 flex items-center justify-center transition-colors text-xs"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Hospital Info -->
+                <div>
+                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-hospital text-tealMedical"></i> C&J Healthcare
+                    </h4>
+                    <ul class="space-y-2 text-xs">
+                        <li>Emergency Line: <span class="text-white font-semibold">+254 700 111 000</span></li>
+                        <li>Outpatient Clinic: Mon - Sun (24 Hrs)</li>
+                        <li>Direct Email: <a href="mailto:ozanjulro@gmail.com" class="hover:text-tealMedical">ozanjulro@gmail.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Hotel Info -->
+                <div>
+                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-hotel text-goldAccent"></i> C&J Haven Hotel
+                    </h4>
+                    <ul class="space-y-2 text-xs">
+                        <li>Reservations: <span class="text-white font-semibold">+254 700 222 000</span></li>
+                        <li>Check-in: 02:00 PM | Check-out: 11:00 AM</li>
+                        <li>Direct Email: <a href="mailto:ozanjulro@gmail.com" class="hover:text-goldAccent">ozanjulro@gmail.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Gym Info -->
+                <div>
+                    <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-dumbbell text-emeraldGym"></i> C&J Vitality Gym
+                    </h4>
+                    <ul class="space-y-2 text-xs">
+                        <li>Desk Hotline: <span class="text-white font-semibold">+254 700 333 000</span></li>
+                        <li>Hours: Mon - Sat: 5:00 AM - 10:00 PM</li>
+                        <li>Direct Email: <a href="mailto:ozanjulro@gmail.com" class="hover:text-emeraldGym">ozanjulro@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                <p>&copy; 2026 C&J Group Ecosystem Enterprise. All rights reserved.</p>
+                <p>Notifications configured for: <strong class="text-white">ozanjulro@gmail.com</strong></p>
+                <a href="/dashboard.html" class="text-xs text-slate-300 hover:text-white underline">Management dashboard</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOOKING INQUIRY MODAL WITH WEB3FORMS INTEGRATION -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-navy-950/85 backdrop-blur-md">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+            <!-- Close Button -->
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <h3 class="text-2xl font-extrabold text-navy-900 mb-1">Book / Inquire Service</h3>
+            <p class="text-xs text-slate-500 mb-4">Complete your details to send a booking inquiry directly to management.</p>
+
+            <!-- Configuration / Access Key Banner -->
+            <div class="mb-5 p-3 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-600 space-y-2">
+                <div class="flex items-center justify-between">
+                    <span><i class="fa-solid fa-paper-plane text-tealMedical mr-1"></i> Destination: <strong class="text-navy-900">ozanjulro@gmail.com</strong></span>
+                    <button type="button" onclick="toggleApiKeyInput()" class="text-[11px] text-tealMedical hover:underline font-bold">Edit Access Key</button>
+                </div>
+                <div id="api-key-container" class="hidden pt-2 border-t border-slate-200">
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Web3Forms Access Key</label>
+                    <input type="text" id="web3forms-key-input" value="451f8aaa-c422-4464-a70c-556d50aa96da" placeholder="Paste your Web3Forms Access Key" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg text-xs bg-white text-slate-800"/>
+                </div>
+            </div>
+
+            <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Ecosystem Division</label>
+                        <select id="modal-entity-select" onchange="updateModalServices()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-slate-50 text-slate-800 font-medium focus:ring-2 focus:ring-tealMedical focus:outline-none">
+                            <option value="hospital">C&J Healthcare (Hospital)</option>
+                            <option value="hotel">C&J Haven (Hotel & Spa)</option>
+                            <option value="gym">C&J Vitality (Gym & Fitness)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Service & Rate (KES)</label>
+                        <select id="modal-service-select" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs bg-slate-50 text-slate-800 font-medium focus:ring-2 focus:ring-tealMedical focus:outline-none">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Full Name *</label>
+                        <input type="text" id="cust-name" required placeholder="e.g. John Doe" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:ring-2 focus:ring-tealMedical focus:outline-none"/>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Phone Number (WhatsApp) *</label>
+                        <input type="tel" id="cust-phone" required placeholder="e.g. +254 700 000 000" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:ring-2 focus:ring-tealMedical focus:outline-none"/>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Your Email Address *</label>
+                        <input type="email" id="cust-email" required placeholder="e.g. client@example.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:ring-2 focus:ring-tealMedical focus:outline-none"/>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-navy-900 mb-1">Preferred Date *</label>
+                        <input type="date" id="cust-date" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:ring-2 focus:ring-tealMedical focus:outline-none"/>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-navy-900 mb-1">Special Requirements / Notes</label>
+                    <textarea id="cust-notes" rows="2" placeholder="Mention any specific requests or questions..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:ring-2 focus:ring-tealMedical focus:outline-none"></textarea>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" id="submit-booking-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-tealMedical to-emeraldGym text-navy-950 font-black text-sm shadow-lg hover:scale-[1.01] active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <span>Send Booking to ozanjulro@gmail.com</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Success Confirmation Display -->
+            <div id="modal-success" class="hidden text-center py-6 space-y-4">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-3xl">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h4 class="text-xl font-extrabold text-navy-900">Booking Request Sent!</h4>
+                <p class="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
+                    Your request has been dispatched to <strong>ozanjulro@gmail.com</strong>. Your request has been saved securely. Our team will contact you shortly to confirm your reservation.
+                </p>
+                <div id="booking-summary-preview" class="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-left text-xs space-y-1 text-slate-700">
+                    <!-- Populated dynamically -->
+                </div>
+                <button onclick="closeBookingModal()" class="px-6 py-2.5 rounded-xl bg-navy-900 text-white font-bold text-xs">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Master Services Dataset with fixed KES pricing
+        const servicesData = [
+            // Healthcare (Hospital)
+            { id: 1, entity: 'hospital', entityName: 'Healthcare', name: 'General Outpatient Consultation', category: 'Medical Consultation', desc: 'Comprehensive medical assessment, vitals check, and prescription plan.', priceKES: 1500, icon: 'fa-user-doctor', badgeColor: 'bg-tealMedical/10 text-tealMedical' },
+            { id: 2, entity: 'hospital', entityName: 'Healthcare', name: 'Comprehensive Executive Health Checkup', category: 'Diagnostics', desc: 'Full blood panel, ECG, chest X-ray, lipid profile, and physician debrief.', priceKES: 15000, icon: 'fa-heart-pulse', badgeColor: 'bg-tealMedical/10 text-tealMedical' },
+            { id: 3, entity: 'hospital', entityName: 'Healthcare', name: 'Private Ward Admission (Per Night)', category: 'Inpatient Care', desc: 'Private room accommodation, 24/7 nursing care, and ward rounds.', priceKES: 8500, icon: 'fa-bed-pulse', badgeColor: 'bg-tealMedical/10 text-tealMedical' },
+            { id: 4, entity: 'hospital', entityName: 'Healthcare', name: 'Full Lab & Imaging Diagnostics', category: 'Laboratory', desc: 'Complete blood count, metabolic panel, and diagnostic imaging scan.', priceKES: 6500, icon: 'fa-vial-virus', badgeColor: 'bg-tealMedical/10 text-tealMedical' },
+
+            // Haven (Hotel & Spa)
+            { id: 5, entity: 'hotel', entityName: 'Haven Hotel', name: 'Deluxe Executive Suite (Per Night)', category: 'Hospitality', desc: 'King bed room, high-speed Wi-Fi, smart TV, and complimentary breakfast.', priceKES: 12500, icon: 'fa-hotel', badgeColor: 'bg-goldAccent/10 text-goldAccent' },
+            { id: 6, entity: 'hotel', entityName: 'Haven Hotel', name: 'Luxury Presidential Suite (Per Night)', category: 'VIP Stay', desc: 'Panoramic balcony, private lounge, hydro bath, and butler service.', priceKES: 35000, icon: 'fa-crown', badgeColor: 'bg-goldAccent/10 text-goldAccent' },
+            { id: 7, entity: 'hotel', entityName: 'Haven Hotel', name: 'Full-Day Conference Facility Package', category: 'Corporate Events', desc: 'Hall rental, AV system setup, executive stationery, and mid-day catering.', priceKES: 25000, icon: 'fa-people-roof', badgeColor: 'bg-goldAccent/10 text-goldAccent' },
+            { id: 8, entity: 'hotel', entityName: 'Haven Hotel', name: 'Full Body Spa & Therapy Session', category: 'Wellness & Spa', desc: '60-minute deep tissue massage, heated hydrotherapy pool access, and sauna.', priceKES: 4500, icon: 'fa-spa', badgeColor: 'bg-goldAccent/10 text-goldAccent' },
+
+            // Vitality (Gym & Fitness)
+            { id: 9, entity: 'gym', entityName: 'Vitality Gym', name: 'Daily Visitor & Pool Pass', category: 'Fitness Pass', desc: 'Single-day access to gym weight room, cardio equipment, and pool.', priceKES: 800, icon: 'fa-ticket', badgeColor: 'bg-emeraldGym/10 text-emeraldGym' },
+            { id: 10, entity: 'gym', entityName: 'Vitality Gym', name: 'Monthly All-Access Gym Membership', category: 'Membership', desc: 'Unlimited monthly gym floors, locker room, sauna, and group classes.', priceKES: 5000, icon: 'fa-dumbbell', badgeColor: 'bg-emeraldGym/10 text-emeraldGym' },
+            { id: 11, entity: 'gym', entityName: 'Vitality Gym', name: '10-Session Personal Training Package', category: 'Coaching', desc: '1-on-1 certified personal trainer, customized workout plan, and body stats.', priceKES: 12000, icon: 'fa-person-running', badgeColor: 'bg-emeraldGym/10 text-emeraldGym' },
+            { id: 12, entity: 'gym', entityName: 'Vitality Gym', name: 'Annual VIP All-Access Membership', category: 'VIP Membership', desc: '12 months full access, complimentary trainer sessions, and guest privileges.', priceKES: 48000, icon: 'fa-medal', badgeColor: 'bg-emeraldGym/10 text-emeraldGym' }
+        ];
+
+        let selectedCalcItems = new Set();
+        let activeEntityFilter = 'all';
+
+        // Currency Formatting in KES
+        function formatKES(amount) {
+            return `KES ${amount.toLocaleString()}`;
+        }
+
+        // Render Services Directory Grid
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            const emptyState = document.getElementById('empty-state');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+            grid.innerHTML = '';
+
+            const filtered = servicesData.filter(item => {
+                const matchesFilter = (activeEntityFilter === 'all') || (item.entity === activeEntityFilter);
+                const matchesSearch = item.name.toLowerCase().includes(searchTerm) || 
+                                      item.category.toLowerCase().includes(searchTerm) ||
+                                      item.desc.toLowerCase().includes(searchTerm);
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'rounded-2xl border border-slate-200 bg-white p-6 flex flex-col justify-between hover:shadow-xl transition-all duration-300';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 rounded-md text-[11px] font-extrabold uppercase ${item.badgeColor}">
+                                <i class="fa-solid ${item.icon} mr-1"></i> ${item.entityName}
+                            </span>
+                            <span class="text-xs font-semibold text-slate-400">${item.category}</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-navy-900 mb-2">${item.name}</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">${item.desc}</p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Standard Rate</span>
+                            <span class="text-xl font-extrabold text-navy-900">${formatKES(item.priceKES)}</span>
+                        </div>
+                        <button onclick="quickBookService(${item.id})" class="px-4 py-2 rounded-xl bg-navy-900 hover:bg-tealMedical text-white font-bold text-xs transition-all">
+                            Book Now
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Render Estimator Options
+        function renderCalculatorOptions() {
+            const container = document.getElementById('calculator-options');
+            container.innerHTML = '';
+
+            servicesData.forEach(item => {
+                const isChecked = selectedCalcItems.has(item.id);
+                const div = document.createElement('div');
+                div.className = `p-3 rounded-xl border transition-all flex items-center justify-between cursor-pointer ${
+                    isChecked ? 'border-tealMedical bg-tealMedical/10 text-white' : 'border-slate-800 bg-navy-950/60 text-slate-300 hover:border-slate-700'
+                }`;
+                div.onclick = () => toggleCalcItem(item.id);
+                div.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <input type="checkbox" ${isChecked ? 'checked' : ''} class="rounded border-slate-700 text-tealMedical focus:ring-0 pointer-events-none"/>
+                        <div>
+                            <span class="text-xs font-bold block text-white">${item.name}</span>
+                            <span class="text-[10px] text-slate-400">${item.entityName} • ${item.category}</span>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold text-goldAccent">${formatKES(item.priceKES)}</span>
+                `;
+                container.appendChild(div);
+            });
+
+            calculateTotalCost();
+        }
+
+        // Toggle Service selection in Calculator
+        function toggleCalcItem(id) {
+            if (selectedCalcItems.has(id)) {
+                selectedCalcItems.delete(id);
+            } else {
+                selectedCalcItems.add(id);
+            }
+            renderCalculatorOptions();
+        }
+
+        // Clear Calculator
+        function clearCalculator() {
+            selectedCalcItems.clear();
+            renderCalculatorOptions();
+        }
+
+        // Compute Total Cost
+        function calculateTotalCost() {
+            let total = 0;
+            selectedCalcItems.forEach(id => {
+                const found = servicesData.find(s => s.id === id);
+                if (found) total += found.priceKES;
+            });
+            document.getElementById('calc-total-price').innerText = formatKES(total);
+        }
+
+        // Switch Active Entity Filter
+        function filterByEntity(entity) {
+            activeEntityFilter = entity;
+            
+            const buttons = document.querySelectorAll('#filter-buttons .filter-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-entity') === entity) {
+                    btn.className = 'filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-navy-900 text-white shadow';
+                } else {
+                    btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-200';
+                }
+            });
+
+            renderServices();
+        }
+
+        function filterServices() {
+            renderServices();
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleApiKeyInput() {
+            const keyBox = document.getElementById('api-key-container');
+            keyBox.classList.toggle('hidden');
+        }
+
+        // Modal Helpers
+        function openBookingModal() {
+            document.getElementById('booking-modal').classList.remove('hidden');
+            document.getElementById('booking-form').classList.remove('hidden');
+            document.getElementById('modal-success').classList.add('hidden');
+            updateModalServices();
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+        function updateModalServices() {
+            const entity = document.getElementById('modal-entity-select').value;
+            const serviceSelect = document.getElementById('modal-service-select');
+            serviceSelect.innerHTML = '';
+
+            const items = servicesData.filter(s => s.entity === entity);
+            items.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.name;
+                opt.innerText = `${s.name} (${formatKES(s.priceKES)})`;
+                serviceSelect.appendChild(opt);
+            });
+        }
+
+        function quickBookService(serviceId) {
+            const item = servicesData.find(s => s.id === serviceId);
+            if (!item) return;
+            
+            openBookingModal();
+            document.getElementById('modal-entity-select').value = item.entity;
+            updateModalServices();
+            document.getElementById('modal-service-select').value = item.name;
+        }
+
+        function proceedToBookFromCalc() {
+            openBookingModal();
+        }
+
+        // Submit Booking via Web3Forms API
+        async function handleBookingSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-booking-btn');
+            const originalBtnHtml = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Submitting Request...`;
+
+            const entitySelect = document.getElementById('modal-entity-select');
+            const serviceSelect = document.getElementById('modal-service-select');
+            const selectedEntityText = entitySelect.options[entitySelect.selectedIndex].text;
+            const selectedServiceText = serviceSelect.options[serviceSelect.selectedIndex].text;
+
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const email = document.getElementById('cust-email').value;
+            const date = document.getElementById('cust-date').value;
+            const notes = document.getElementById('cust-notes').value || 'None';
+            const apiKey = document.getElementById('web3forms-key-input').value.trim() || 'test@web3forms.com';
+
+            const payload = {
+                access_key: apiKey,
+                to_email: 'ozanjulro@gmail.com',
+                subject: `New C&J Group Booking: ${name} (${selectedEntityText})`,
+                from_name: 'C&J Group Ecosystem Website',
+                customer_name: name,
+                customer_phone: phone,
+                customer_email: email,
+                division: selectedEntityText,
+                service_requested: selectedServiceText,
+                preferred_date: date,
+                special_notes: notes
+            };
+
+            try {
+                // Save the booking in the shared C&J database first. The dashboard reads from this endpoint.
+                const saved = await fetch('/api/cj-bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        customer_name: name,
+                        customer_phone: phone,
+                        customer_email: email,
+                        division: selectedEntityText,
+                        service_requested: selectedServiceText,
+                        preferred_date: date,
+                        special_notes: notes
+                    })
+                });
+                if (!saved.ok) {
+                    const problem = await saved.json().catch(() => ({}));
+                    throw new Error(problem.error || 'The booking could not be saved. Please try again.');
+                }
+
+                // Keep the existing email notification to management.
+                let emailNotice = '';
+                try {
+                    const response = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    if (!response.ok || !result.success) emailNotice = ' Your booking is saved; the email notification may be delayed.';
+                } catch (mailError) {
+                    emailNotice = ' Your booking is saved; the email notification may be delayed.';
+                }
+
+                // Show success summary preview
+                document.getElementById('booking-summary-preview').innerHTML = `
+                    <p class="font-bold text-navy-900 border-b pb-1 mb-1">Received Booking Summary:</p>
+                    <p><strong>Recipient:</strong> ozanjulro@gmail.com</p>
+                    <p><strong>Customer:</strong> ${name} (${phone})</p>
+                    <p><strong>Division:</strong> ${selectedEntityText}</p>
+                    <p><strong>Service:</strong> ${selectedServiceText}</p>
+                    <p><strong>Date:</strong> ${date}</p>
+                    <p><strong>Notes:</strong> ${notes}</p>
+                    <p class="text-emerald-700 font-semibold">Saved to C&J bookings.${emailNotice}</p>
+                `;
+
+                document.getElementById('booking-form').classList.add('hidden');
+                document.getElementById('modal-success').classList.remove('hidden');
+            } catch (err) {
+                // Mailto fallback if network fails
+                const emailSubject = encodeURIComponent(`C&J Booking: ${name} - ${selectedServiceText}`);
+                const emailBody = encodeURIComponent(`Name: ${name}\nPhone: ${phone}\nDivision: ${selectedEntityText}\nService: ${selectedServiceText}\nDate: ${date}\nNotes: ${notes}`);
+                window.location.href = `mailto:ozanjulro@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalBtnHtml;
+            }
+        }
+
+        // Initialize Page Data on Load
+        window.onload = function() {
+            renderServices();
+            renderCalculatorOptions();
+        };
+    </script>
+</body>
+</html>
