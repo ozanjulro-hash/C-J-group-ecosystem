@@ -1,1 +1,1 @@
-{"name":"C&J Group Ecosystem","short_name":"C&J Group","start_url":"/","scope":"/","display":"standalone","background_color":"#f7f4f7","theme_color":"#24102f","icons":[{"src":"/logo.jpg","sizes":"any","type":"image/jpeg","purpose":"any"}]}
+{"name":"C&J Management","short_name":"C&J Admin","start_url":"/manage/","scope":"/manage/","display":"standalone","background_color":"#f5f2f7","theme_color":"#24102f","icons":[{"src":"/logo.jpg","sizes":"any","type":"image/jpeg","purpose":"any"}]}
